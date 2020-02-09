@@ -27,4 +27,7 @@ public class Dog {
     @Column
     private String breed;
 
+    @Version
+    private Integer version;
+
 }

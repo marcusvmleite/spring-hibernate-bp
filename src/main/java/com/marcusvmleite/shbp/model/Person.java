@@ -29,6 +29,9 @@ public class Person {
     @UpdateTimestamp
     private Date updated;
 
+    @Version
+    private Integer version;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "person", orphanRemoval = true)
     private List<Dog> dogs = new ArrayList<>();
 
