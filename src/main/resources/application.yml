@@ -9,6 +9,9 @@ spring:
         format_sql: true
         jdbc:
           time_zone: UTC
+          batch_size: 10
+          order_inserts: true
+        generate_statistics: true
   h2:
     console:
       enabled: true
