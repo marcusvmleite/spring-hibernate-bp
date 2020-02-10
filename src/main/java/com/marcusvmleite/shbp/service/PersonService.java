@@ -21,7 +21,7 @@ public class PersonService {
     private EntityManager entityManager;
 
     @Transactional
-    public void create() {
+    public List<Person> create() {
         Person person1 = new Person();
         person1.setName(UUID.randomUUID().toString());
         Dog dog1 = new Dog();
@@ -61,9 +61,11 @@ public class PersonService {
         List<Person> persons = Arrays.asList(person1, person2, person3);
 
         repository.saveAll(persons);
+
+        return persons;
     }
 
-    public Person get(Integer id) {
+    public Person get(Long id) {
         Person person = repository.findById(id).get();
         for (Dog dog : person.getDogs()) {
             System.out.println(dog.getBreed());
@@ -73,8 +75,10 @@ public class PersonService {
     }
 
     @Transactional
-    public void update() {
-        Person person = repository.findById(1).get();
+    public Person update() {
+        Person person = repository.findById(1L).get();
         person.setName("mudou");
+        return person;
     }
+
 }

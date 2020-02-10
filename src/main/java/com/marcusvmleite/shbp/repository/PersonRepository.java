@@ -8,9 +8,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface PersonRepository extends JpaRepository<Person, Integer> {
+public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @Query("SELECT NEW com.marcusvmleite.shbp.model.PersonDto(p.name) FROM Person p WHERE p.id = :id")
-    List<PersonDto> findNameById(@Param("id") Integer id);
+    List<PersonDto> findNameById(@Param("id") Long id);
 
 }

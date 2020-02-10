@@ -1,5 +1,6 @@
 package com.marcusvmleite.shbp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public class PersonDetails {
     @Column
     private String details;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "id")
     @MapsId

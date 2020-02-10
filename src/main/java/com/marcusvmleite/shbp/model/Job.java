@@ -21,6 +21,7 @@ public class Job {
     @Column
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "jobs")
     private Set<Person> persons = new HashSet<>();
 
