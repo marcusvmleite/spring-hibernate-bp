@@ -18,7 +18,7 @@ public class Person {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
 
     @Column
     private String name;
@@ -31,6 +31,9 @@ public class Person {
 
     @Version
     private Integer version;
+
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
+    private PersonDetails details;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "person", orphanRemoval = true)
     private List<Dog> dogs = new ArrayList<>();

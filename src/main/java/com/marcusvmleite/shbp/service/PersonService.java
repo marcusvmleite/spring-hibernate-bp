@@ -2,6 +2,7 @@ package com.marcusvmleite.shbp.service;
 
 import com.marcusvmleite.shbp.model.Dog;
 import com.marcusvmleite.shbp.model.Person;
+import com.marcusvmleite.shbp.model.PersonDetails;
 import com.marcusvmleite.shbp.model.PersonDto;
 import com.marcusvmleite.shbp.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,11 @@ public class PersonService {
         dog1.setName("mayla1");
         dog1.setPerson(person1);
         person1.getDogs().add(dog1);
+
+        PersonDetails pd1 = new PersonDetails();
+        pd1.setPerson(person1);
+        pd1.setDetails(UUID.randomUUID().toString());
+        person1.setDetails(pd1);
 
         Person person2 = new Person();
         person2.setName(UUID.randomUUID().toString());
