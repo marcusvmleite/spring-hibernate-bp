@@ -1,9 +1,6 @@
 package com.marcusvmleite.shbp.service;
 
-import com.marcusvmleite.shbp.model.Dog;
-import com.marcusvmleite.shbp.model.Person;
-import com.marcusvmleite.shbp.model.PersonDetails;
-import com.marcusvmleite.shbp.model.PersonDto;
+import com.marcusvmleite.shbp.model.*;
 import com.marcusvmleite.shbp.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +34,13 @@ public class PersonService {
         pd1.setPerson(person1);
         pd1.setDetails(UUID.randomUUID().toString());
         person1.setDetails(pd1);
+
+        Job job1 = new Job();
+        job1.setName(UUID.randomUUID().toString());
+
+        person1.getJobs().add(job1);
+
+        job1.getPersons().add(person1);
 
         Person person2 = new Person();
         person2.setName(UUID.randomUUID().toString());

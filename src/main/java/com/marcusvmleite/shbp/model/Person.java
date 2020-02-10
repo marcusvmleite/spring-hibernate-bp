@@ -6,9 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Setter
@@ -37,5 +35,11 @@ public class Person {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "person", orphanRemoval = true)
     private List<Dog> dogs = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "PERSON_JOB",
+            joinColumns = { @JoinColumn(name = "job") },
+            inverseJoinColumns = { @JoinColumn(name = "person") })
+    private Set<Job> jobs = new HashSet<>();
 
 }
