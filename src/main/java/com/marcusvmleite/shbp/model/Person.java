@@ -13,6 +13,14 @@ import java.util.*;
 @Setter
 @Entity
 @Table(name = "PERSON")
+@NamedEntityGraph(
+        name = "Person.eager",
+        attributeNodes = {
+                @NamedAttributeNode("dogs"),
+                @NamedAttributeNode("jobs"),
+                @NamedAttributeNode("details")
+        }
+)
 public class Person {
 
     @Id
@@ -36,7 +44,7 @@ public class Person {
     @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     private PersonDetails details;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "person", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "person", orphanRemoval = true)
     private List<Dog> dogs = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.PERSIST)

@@ -2,6 +2,7 @@ package com.marcusvmleite.shbp.controller;
 
 import com.marcusvmleite.shbp.model.Dog;
 import com.marcusvmleite.shbp.model.Person;
+import com.marcusvmleite.shbp.repository.PersonRepository;
 import com.marcusvmleite.shbp.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,10 +26,7 @@ public class PersonController {
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Person> get(@PathVariable Long id) {
-        Person person = service.get(id);
-        for (Dog dog : person.getDogs()) {
-            System.out.println(dog.getBreed());
-        }
+        Person person = service.findBy(id);
         return new ResponseEntity<>(person, HttpStatus.OK);
     }
 

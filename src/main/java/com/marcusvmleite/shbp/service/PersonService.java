@@ -1,5 +1,6 @@
 package com.marcusvmleite.shbp.service;
 
+import com.marcusvmleite.shbp.exception.PersonNotFoundException;
 import com.marcusvmleite.shbp.model.*;
 import com.marcusvmleite.shbp.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +10,18 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class PersonService {
 
-    @Autowired
     private PersonRepository repository;
 
     @Autowired
-    private EntityManager entityManager;
+    public PersonService(PersonRepository repository) {
+        this.repository = repository;
+    }
 
     @Transactional
     public List<Person> create() {
@@ -60,18 +63,17 @@ public class PersonService {
 
         List<Person> persons = Arrays.asList(person1, person2, person3);
 
-        repository.saveAll(persons);
+        //repository.saveAll(persons);
+        repository.save(person1);
+        repository.save(person2);
+        repository.save(person3);
 
         return persons;
     }
 
-    public Person get(Long id) {
-        Person person = repository.findById(id).get();
-        for (Dog dog : person.getDogs()) {
-            System.out.println(dog.getBreed());
-        }
-        List<PersonDto> dto = repository.findNameById(id);
-        return person;
+    public Person findBy(Long id) {
+        Optional<Person> person = repository.findById(id);
+        return person.orElseThrow(() -> new PersonNotFoundException("Could not find Person with ID [" + id + "]."));
     }
 
     @Transactional

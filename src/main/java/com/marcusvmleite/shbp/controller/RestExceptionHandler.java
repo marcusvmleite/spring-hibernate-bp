@@ -1,5 +1,6 @@
 package com.marcusvmleite.shbp.controller;
 
+import com.marcusvmleite.shbp.exception.PersonNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -17,4 +18,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError(ex);
         return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(PersonNotFoundException.class)
+    protected ResponseEntity<ApiError> handlePersonNotFound(PersonNotFoundException ex) {
+        ApiError apiError = new ApiError(ex);
+        return new ResponseEntity<>(apiError, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
 }
